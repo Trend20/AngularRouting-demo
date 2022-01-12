@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +7,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'routing-demo';
   currentRoute!: string;
+  title!: string;
+  name!: string;
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private route: ActivatedRoute){}
+
+  ngOnInit(){
+    this.route.queryParams
+    .subscribe(params =>{
+      console.log(params);
+    })
+  }
 
   displaySecondComponent(){
-    this.router.navigate(['/second-component'], {queryParams: {title: 'secondcomponent'}})
+    this.router.navigate(['/second-component'], {queryParams: {title: 'secondcomponent', name: 'secondpage'}})
   }
 
   logQueryParams(){}
